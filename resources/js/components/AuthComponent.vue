@@ -48,19 +48,19 @@
 
 <script>
     export default {
-        data(){
+        data() {
             return {
-                authData: {}
+                authData: {},
             };
         },
-        methods:{
-            auth(){
+        methods: {
+            auth() {
                 this.$passport.accessToken(this.authData);
             },
-            teste(){
-                axios.get('http://127.0.0.1:8000/api/user').then((res) => {
-                    console.log(res.data);
-                })
+            teste() {
+                axios.get('/api/user').then((res) => {
+                    console.log('usuário atual: ',res.data);
+                });
             }
         },
         mounted() {
