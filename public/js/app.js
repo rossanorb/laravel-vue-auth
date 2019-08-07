@@ -1894,18 +1894,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     auth: function auth() {
-      var defaultData = {
-        grant_type: 'password',
-        client_id: '2',
-        client_secret: 'opyj3l1gP1ocWbU0GeEn85eMbvebYqRZIBPYQqQ9',
-        scope: ''
-      };
-      var data = Object.assign(defaultData, this.authData);
-      console.log(data);
-      axios.post('http://127.0.0.1:8000/oauth/token', data).then(function (res) {
-        console.log(res.data);
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
-      });
+      this.$passport.accessToken(this.authData);
     },
     teste: function teste() {
       axios.get('http://127.0.0.1:8000/api/user').then(function (res) {
@@ -49636,14 +49625,19 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _passport__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./passport */ "./resources/js/passport.js");
 
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -49665,6 +49659,7 @@ Vue.component('auth-component', __webpack_require__(/*! ./components/AuthCompone
  */
 
 Vue.use(__webpack_require__(/*! vue-cookies */ "./node_modules/vue-cookies/vue-cookies.js"));
+Vue.use(_passport__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var app = new Vue({
   el: '#app'
 });
@@ -49795,6 +49790,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AuthComponent_vue_vue_type_template_id_b0e5954c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/passport.js":
+/*!**********************************!*\
+  !*** ./resources/js/passport.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var cookies = __webpack_require__(/*! vue-cookies */ "./node_modules/vue-cookies/vue-cookies.js");
+
+var passport = {};
+
+passport.install = function (vue, options) {
+  var $passport = {};
+
+  $passport.getAccessToken = function () {
+    return cookies.get('access_token');
+  };
+
+  $passport.accessToken = function (user) {
+    var defaultData = {
+      grant_type: 'password',
+      client_id: '2',
+      client_secret: 'opyj3l1gP1ocWbU0GeEn85eMbvebYqRZIBPYQqQ9',
+      scope: ''
+    };
+    var data = Object.assign(defaultData, user);
+    console.log(data);
+    axios.post('http://127.0.0.1:8000/oauth/token', data).then(function (res) {
+      console.log(res.data);
+      cookies.set('access_token', res.data.access_token);
+      cookies.set('refresh_token', res.data.refresh_token);
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
+    });
+  };
+
+  var token = $passport.getAccessToken();
+
+  if (token) {
+    console.log(token);
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  }
+
+  vue.prototype.$passport = $passport;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (passport);
 
 /***/ }),
 

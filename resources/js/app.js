@@ -1,3 +1,6 @@
+
+import passport from './passport';
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -28,6 +31,7 @@ Vue.component('auth-component', require('./components/AuthComponent.vue').defaul
  */
 
  Vue.use(require('vue-cookies'));
+ Vue.use(passport);
 
 const app = new Vue({
     el: '#app',

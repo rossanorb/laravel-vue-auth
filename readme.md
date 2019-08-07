@@ -34,21 +34,29 @@ npm install
 
 ## Instalar Laravel Passport
 
-composer require laravel/passport
-php artisan migrate
-php artisan passport:install
+composer require laravel/passport.
+
+php artisan migrate.
+
+php artisan passport:install.
 
 
 Encryption keys generated successfully.
+
 Personal access client created successfully.
+
 Client ID: 1
+
 Client secret: iaN3uiFtW2S2RyrmyHEt0x7pWKXkT3lkFkGusisj
+
 Password grant client created successfully.
+
 Client ID: 2
+
 Client secret: opyj3l1gP1ocWbU0GeEn85eMbvebYqRZIBPYQqQ9
 
 
-#Rodar 
+##Rodar 
 npm run watch
 
 php artisan make:auth

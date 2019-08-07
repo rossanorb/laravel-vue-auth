@@ -55,18 +55,7 @@
         },
         methods:{
             auth(){
-                const defaultData = {
-                    grant_type: 'password',
-                    client_id: '2',
-                    client_secret: 'opyj3l1gP1ocWbU0GeEn85eMbvebYqRZIBPYQqQ9',
-                    scope: ''
-                };
-                const data = Object.assign(defaultData, this.authData);
-                console.log(data);
-                axios.post('http://127.0.0.1:8000/oauth/token', data).then((res) => {
-                    console.log(res.data);
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
-                })
+                this.$passport.accessToken(this.authData);
             },
             teste(){
                 axios.get('http://127.0.0.1:8000/api/user').then((res) => {
