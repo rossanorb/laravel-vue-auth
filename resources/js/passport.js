@@ -5,8 +5,32 @@ passport.install = function(vue, options){
     const $passport = {};
 
     $passport.getAccessToken = () => {
-        return cookies.get('access_token')
+        return cookies.get('access_token');
     };
+
+    $passport.getRefreshToken = () => {
+        return cookies.get('refresh_token');
+    };    
+
+    $passport.refreshToken = () => {
+        const data = {
+            grant_type: 'refresh_token',
+            client_id: '2',
+            client_secret: 'opyj3l1gP1ocWbU0GeEn85eMbvebYqRZIBPYQqQ9',
+            refresh_token: $passport.refreshToken(),
+            scope: ''
+        };
+        
+        return axios.post('http://127.0.0.1:8000/oauth/token', data).then((res) => {
+            console.log('refresh token');
+            console.log(res.data)
+            cookies.set('access_token', res.data.access_token);
+            cookies.set('refresh_token', res.data.refresh_token);
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
+
+            return res.data;
+        })        
+    }
 
     $passport.accessToken = (user) => {
         const defaultData = {
@@ -19,7 +43,8 @@ passport.install = function(vue, options){
         console.log(data)
         
         axios.post('http://127.0.0.1:8000/oauth/token', data).then((res) => {
-            console.log(res.data)
+            console.log('autenticado');
+            console.log(res.data);
             cookies.set('access_token', res.data.access_token);
             cookies.set('refresh_token', res.data.refresh_token);
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.access_token;
