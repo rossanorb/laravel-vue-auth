@@ -51,8 +51,16 @@ Client secret: opyj3l1gP1ocWbU0GeEn85eMbvebYqRZIBPYQqQ9
 #Rodar 
 npm run watch
 
-
 php artisan make:auth
+
+## Dependências Vue.js
+
+npm install --save vue-cookies
+
+adiciona-lo no .resources/js/app.js
+
+
+
 
 
 
