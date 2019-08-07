@@ -21,7 +21,7 @@ passport.install = function (vue, options) {
             scope: ''
         };
         
-        return axios.post('/oauth/token', data).then((res) => {
+        return axios.post('http://127.0.0.1:8000/oauth/token', data).then((res) => {
             console.log('token atualizado');
             cookies.set('access_token', res.data.access_token);
             cookies.set('refresh_token', res.data.refresh_token);

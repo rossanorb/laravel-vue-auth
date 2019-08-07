@@ -1909,7 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$passport.accessToken(this.authData);
     },
     teste: function teste() {
-      axios.get('/api/user').then(function (res) {
+      axios.get('http://127.0.0.1:8000/api/user').then(function (res) {
         console.log('usuário atual: ', res.data);
       });
     }
@@ -50618,7 +50618,7 @@ passport.install = function (vue, options) {
       refresh_token: $passport.getRefreshToken(),
       scope: ''
     };
-    return axios.post('/oauth/token', data).then(function (res) {
+    return axios.post('http://127.0.0.1:8000/oauth/token', data).then(function (res) {
       console.log('token atualizado');
       cookies.set('access_token', res.data.access_token);
       cookies.set('refresh_token', res.data.refresh_token);

@@ -58,7 +58,7 @@
                 this.$passport.accessToken(this.authData);
             },
             teste() {
-                axios.get('/api/user').then((res) => {
+                axios.get('http://127.0.0.1:8000/api/user').then((res) => {
                     console.log('usuário atual: ',res.data);
                 });
             }
